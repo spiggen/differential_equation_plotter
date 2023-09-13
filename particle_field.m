@@ -121,7 +121,8 @@ methods
 
 
     function plot(self, plotobj)
-    order = [loopback(self.index_counter+1, self.length_of_trail):self.length_of_trail, 1:loopback(self.index_counter, self.length_of_trail)];
+    order = [(mod(self.index_counter, self.length_of_trail)+1):self.length_of_trail, ... 
+             1:mod(self.index_counter, self.length_of_trail)];
 
     if exist("plotobj", "var")
     plot(plotobj, self.x_positions_trails(:, order)', ...

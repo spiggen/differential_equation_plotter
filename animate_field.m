@@ -15,8 +15,9 @@ end
 
 
 serpendipity_theme();
-my_axes = uiaxes("XLim",[xmin xmax], "YLim",[ymin, ymax]);
-serpendipity_theme(my_axes);
+%my_axes = uiaxes("XLim",[xmin xmax], "YLim",[ymin, ymax]);
+p = axes();
+serpendipity_theme(p);
 
 my_field = particle_field(100,50,xmax, xmin, ymax, ymin);
 
@@ -35,7 +36,7 @@ my_field.record_trails();
 end
 
 if mod(iteration, plotting_interval) == 0
-my_field.plot(my_axes);
+my_field.plot(p);
 drawnow
 end
 
