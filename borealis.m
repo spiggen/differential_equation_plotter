@@ -1,11 +1,12 @@
-function serpendipity_theme()
+function borealis()
 
-background_color = [30 0 40]/255;
-axis_color = [160 0 102]/255;
-new_colororder = [linspace(255,    255,20)' ...
-                  linspace(0,      255,20)' ...
-                  linspace(0,     0,  20)']./255;
 
+background_color = [0 0 0]/255;
+axis_color       = [0 0 0]/255;
+new_colororder = 1 - get(gca, "colororder");
+new_colororder(:,1) = (2/pi)*atan(new_colororder(:,1)*2);
+new_colororder(:,2) = (2/pi)*atan(new_colororder(:,2)*2);
+new_colororder(:,3) = (2/pi)*atan(new_colororder(:,3)*3.5);
 
 set(0, "defaultaxescolor",   background_color)
 set(0, "defaultfigurecolor", background_color)
@@ -24,5 +25,7 @@ gcf.YColor = axis_color;
 gcf.ZColor = axis_color;
 
 gcf.ColorOrder = new_colororder;
+
+
 
 end
