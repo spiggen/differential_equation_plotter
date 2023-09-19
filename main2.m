@@ -1,23 +1,24 @@
-dt = 0.003;
+dt = 0.002;
 
-%my_vidwriter = VideoWriter("flowfield1.avi");
+
 myaxes = axes();
 borealis()
-%set(gcf,'units','normalized','outerposition',[0 0 1 1])
+set(gcf,'units','normalized','outerposition',[0 0 1 1]);
+%my_field = particle_field(200, 100, 10, -10, 5, -5);
+%my_field.iteration_nr = 1;
+%my_field.recording_nr = 1;
+%my_field.render_nr    = 1;
+
+animate_field("ParticleField", my_field, ...
+              "Function",      @diff_eq1, ...
+              "Method",        @(x,y,fcn)Euler_forward(x,y,fcn,dt), ...
+              "Axes",          myaxes, ... 
+              "SaveFilename",  "C:\Users\jonas\OneDrive - KTH\Matlab-drive\differential_equation_plotter\frames\pendelum.png");
 
 
-
-animate_field("Function", @diff_eq1, ...
-              "Method", @(x,y,fcn)Euler_forward(x,y,fcn,dt), ...
-              "XLim", [-10, 10], ...
-              "YLim", [-5, 5], ...
-              "Axes", myaxes);
 
 
 function [dxdt, dydt] = diff_eq1(x,y)
-
-dydt = sin(x);
+dydt = sin(x) - 0.3*y;
 dxdt = y;
-
-
 end

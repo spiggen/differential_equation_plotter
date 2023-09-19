@@ -4,9 +4,9 @@ function borealis()
 background_color = [0 0 0]/255;
 axis_color       = [0 0 0]/255;
 new_colororder = 1 - get(gca, "colororder");
-new_colororder(:,1) = (2/pi)*atan(new_colororder(:,1)*2);
-new_colororder(:,2) = (2/pi)*atan(new_colororder(:,2)*2);
-new_colororder(:,3) = (2/pi)*atan(new_colororder(:,3)*3.5);
+new_colororder(:,1) = (2/pi)*atan(new_colororder(:,1)*2 + 0.2*rand(size(new_colororder(:,1))));
+new_colororder(:,2) = (2/pi)*atan(new_colororder(:,2)*2 + 0.2*rand(size(new_colororder(:,1))));
+new_colororder(:,3) = (2/pi)*atan(new_colororder(:,3)*4);
 
 set(0, "defaultaxescolor",   background_color)
 set(0, "defaultfigurecolor", background_color)

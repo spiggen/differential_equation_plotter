@@ -4,6 +4,10 @@ properties (Access = public)
 
     x_positions
     y_positions
+
+    iteration_nr = 1
+    recording_nr = 1
+    render_nr    = 1
     
 
     x_max
