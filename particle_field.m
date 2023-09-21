@@ -61,20 +61,20 @@ methods
 
     [x_positions, y_positions] = meshgrid(linspace(x_min, x_max, ceil(sqrt(number_of_particles))), ...
                                           linspace(y_min, y_max, ceil(sqrt(number_of_particles))));
-    if gpuDeviceCount("available") == 0
+    %if gpuDeviceCount("available") == 0
     self.x_positions = reshape(x_positions, numel(x_positions), 1);
     self.y_positions = reshape(y_positions, numel(y_positions), 1);
     
     self.x_positions_trails = NaN(self.number_of_particles, self.length_of_trail);
     self.y_positions_trails = NaN(self.number_of_particles, self.length_of_trail);
     
-    else
-    self.x_positions = gpuArray(reshape(x_positions, numel(x_positions), 1));
-    self.y_positions = gpuArray(reshape(y_positions, numel(y_positions), 1));
+    %else
+    %self.x_positions = gpuArray(reshape(x_positions, numel(x_positions), 1));
+    %self.y_positions = gpuArray(reshape(y_positions, numel(y_positions), 1));
     
-    self.x_positions_trails = gpuArray(NaN(self.number_of_particles, self.length_of_trail));
-    self.y_positions_trails = gpuArray(NaN(self.number_of_particles, self.length_of_trail));
-    end
+    %self.x_positions_trails = gpuArray(NaN(self.number_of_particles, self.length_of_trail));
+    %self.y_positions_trails = gpuArray(NaN(self.number_of_particles, self.length_of_trail));
+    %end
     end
 
 
