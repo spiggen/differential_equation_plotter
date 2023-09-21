@@ -1,4 +1,4 @@
-function borealis()
+function ThreeBlueOneBrown()
 
 
 background_color = [0 0 0]/255;

@@ -68,6 +68,7 @@ end
 
 if mod(my_field.iteration_nr, plotting_interval) == 0
 my_field.plot(myaxes);
+
 if saving
 exportgraphics(myaxes, strrep(filename, ".png", string(my_field.render_nr)+".png"), ...
                'Resolution',        300, ...
