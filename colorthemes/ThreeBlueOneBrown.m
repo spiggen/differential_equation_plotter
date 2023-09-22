@@ -1,9 +1,9 @@
 function ThreeBlueOneBrown()
 
 
-background_color = [0 0 0]/255;
-axis_color       = [0 0 0]/255;
-new_colororder = 1 - get(gca, "colororder");
+background_color    = [0 0 0]/255;
+axis_color          = [0 0 0]/255;
+new_colororder      = 1 - get(gca, "colororder");
 new_colororder(:,1) = (2/pi)*atan(new_colororder(:,1)*2 + 0.2*rand(size(new_colororder(:,1))));
 new_colororder(:,2) = (2/pi)*atan(new_colororder(:,2)*2 + 0.2*rand(size(new_colororder(:,1))));
 new_colororder(:,3) = (2/pi)*atan(new_colororder(:,3)*4);

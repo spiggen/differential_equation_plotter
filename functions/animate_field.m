@@ -40,7 +40,7 @@ renewal_interval = varargin{index + 1};
 end
 end
 
-if exist("myaxes",   "var") == false; myaxes = axes(); end
+if exist("myaxes",   "var") == false; myaxes = figure(); end
 if exist("my_field", "var") == false 
 my_field = particle_field(200, 50, xmax, xmin, ymax, ymin); 
 end
@@ -51,14 +51,13 @@ end
 
 
 while true
-%if gpuavailable
-[my_field.x_positions, my_field.y_positions] = arrayfun( @(x,y) method(x,y, fcn), my_field.x_positions, my_field.y_positions);
-%else
-%parfor index = 1:numel(my_field.x_positions)
-%x_index = mod(index, width(my_field.x_positions))
-%[my_field.x_positions(), my_field.y_positions] = arrayfun( @(x,y) parfeval(method(x,y, fcn), 2), my_field.x_positions, my_field.y_positions);
-%end
-%end
+
+% parfor index = 1:numel(x_positions)
+% [x_positions(index), y_positions(index)] = method(x_positions(index),y_positions(index), fcn);
+% end
+
+[my_field.x_positions, my_field.y_positions] = arrayfun( @(x,y)method(x,y, fcn), my_field.x_positions, my_field.y_positions);
+
 
 
 if mod(my_field.iteration_nr, recording_interval) == 0
