@@ -5,6 +5,11 @@ properties (Access = public)
     x_positions
     y_positions
 
+    x_positions_init
+    y_positions_init
+
+    reset_to_rand = false
+
     iteration_nr = 1
     recording_nr = 1
     render_nr    = 1
@@ -61,10 +66,14 @@ methods
 
     [x_positions, y_positions] = meshgrid(linspace(x_min, x_max, ceil(sqrt(number_of_particles))), ...
                                           linspace(y_min, y_max, ceil(sqrt(number_of_particles))));
+
     %if gpuDeviceCount("available") == 0
     self.x_positions = reshape(x_positions, numel(x_positions), 1);
     self.y_positions = reshape(y_positions, numel(y_positions), 1);
     
+    self.x_positions_init = self.x_positions;
+    self.y_positions_init = self.y_positions;
+
     self.x_positions_trails = NaN(self.number_of_particles, self.length_of_trail);
     self.y_positions_trails = NaN(self.number_of_particles, self.length_of_trail);
     
@@ -85,12 +94,17 @@ methods
     self.x_positions_trails(:,self.index_counter) = self.x_positions;
     self.y_positions_trails(:,self.index_counter) = self.y_positions;
 
-    
+    if self.reset_to_rand
     self.x_positions = arrayfun(@(x)rand_if_outofbounds(self.x_min, x, self.x_max), ...
                                                     self.x_positions);
     self.y_positions = arrayfun(@(x)rand_if_outofbounds(self.y_min, x, self.y_max), ...
                                                     self.y_positions);
-
+    else
+    self.x_positions = arrayfun(@(x_init, x)reset_if_outofbounds(x_init, self.x_min, x, self.x_max), ...
+                                                    self.x_positions_init, self.x_positions);
+    self.y_positions = arrayfun(@(x_init, x)reset_if_outofbounds(x_init, self.y_min, x, self.y_max), ...
+                                                    self.y_positions_init, self.y_positions);
+    end
 
     self.x_positions_trails(:,self.index_counter) = arrayfun(@(x)NaN_if_outofbounds(self.x_min, x, self.x_max), ...
                                                     self.x_positions_trails(:,self.index_counter));
@@ -114,8 +128,13 @@ methods
     for i = 1:number_of_tails
     particle_to_be_reset = round(rand(1)*(self.number_of_particles -1) +1);
     
+    if self.reset_to_rand
     self.x_positions(particle_to_be_reset) = rand(1)*(self.x_max-self.x_min) + self.x_min;
     self.y_positions(particle_to_be_reset) = rand(1)*(self.y_max-self.y_min) + self.y_min;
+    else
+    self.x_positions(particle_to_be_reset) = self.x_positions_init(particle_to_be_reset);
+    self.y_positions(particle_to_be_reset) = self.y_positions_init(particle_to_be_reset);
+    end
     self.x_positions_trails(particle_to_be_reset, self.index_counter) = NaN;
     self.y_positions_trails(particle_to_be_reset, self.index_counter) = NaN;
     end
